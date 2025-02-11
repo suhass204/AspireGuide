@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precision Marketing Quiz</title>
+    <style>
+        :root {
+            --primary-dark: #0F4C5C;
+            --primary-light: #1B2D45;
+            --accent-primary: #f5bc20;
+            --accent-secondary: #f5bc20;
+            --accent-highlight: #f5bc20;
+            --text-light: #FFFFFF;
+            --text-dark: #1B2D45;
+            --overlay: rgba(15, 76, 92, 0.9);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            display: flex;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .left-section {
+            width: 50%;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+        }
+
+        .right-section {
+            width: 50%;
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/quizlandingpage-Gjv9k0GcLRVwyAzZinMxFLf8RCUBLC.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        p {
+            font-size: 18px;
+            color: var(--accent-secondary);
+            margin-bottom: 30px;
+        }
+
+        .take-quiz-btn {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--text-dark);
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .take-quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+
+        .enter-text {
+            font-size: 14px;
+            color: var(--accent-secondary);
+            margin-top: 10px;
+        }
+
+        .overlay-card {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: var(--overlay);
+            padding: 20px;
+            border-radius: 10px;
+            width: 250px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .overlay-card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .overlay-card p {
+            font-size: 14px;
+            color: var(--accent-secondary);
+            margin-bottom: 20px;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--text-dark);
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background: linear-gradient(45deg, var(--accent-secondary), var(--accent-highlight));
+        }
+
+        .target-icon {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--accent-highlight);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .target-icon::before,
+        .target-icon::after {
+            content: '';
+            position: absolute;
+            border: 2px solid var(--accent-highlight);
+            border-radius: 50%;
+        }
+
+        .target-icon::before {
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
+        }
+
+        .target-icon::after {
+            top: 45px;
+            left: 45px;
+            right: 45px;
+            bottom: 45px;
+        }
+
+        .target-center {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-highlight);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1>Who are you? </h1>
+            <p> Reflect, assess, and align aspirations</p>
+            <button class="take-quiz-btn" onclick="window.location.href='assessment.html'">Take the assessment</button>
+
+            
+        </div>
+        <div class="right-section">
+            <div class="target-icon">
+                <div class="target-center"></div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

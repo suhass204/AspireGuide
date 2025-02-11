@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerAddict Dashboard</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-image: url('signup.avif');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px;
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .header-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo span {
+            color: #ae8513;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+        .hero {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 24px;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 20px;
+            margin-top: -100px;
+            position: relative;
+            z-index: 2;
+        }
+        .feature {
+            background-color:#d9ad33;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 28%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+           
+            
+        
+           
+        .feature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+        .feature h3 {
+            margin-top: 0;
+            color: #1a374d;
+        }
+        .feature p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #d5a626;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: transparent;
+            color: #1a374d;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #1a374d;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #1a374d;
+            color: white;
+        }
+        .footer {
+            background-color: #1a374d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .features {
+                flex-wrap: wrap;
+                margin-top: -50px;
+            }
+            .feature {
+                width: 45%;
+                margin-bottom: 20px;
+            }
+            .nav {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .feature {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="top-bar">
+                <div class="logo">Aspire<span>Guide</span></div>
+                <nav class="nav">
+                    <a href="chatbot.html">ChatBot</a>
+                    <a href="quiz.html">Self Assesment</a>
+                    <a href="swot.html">SWOT Analysis</a>
+                    <a href="#" id="logout">Logout</a>
+                    
+                </nav>
+            </div>
+            <div class="hero">
+                <h1>Kickstart and<br>advance your career</h1>
+                <p>Expert tools and advice to achieve your career goals</p>
+            </div>
+        </div>
+    </header>
+    <section class="features">
+        <div class="feature">
+            <div class="feature-icon">🤖</div>
+            <h3>ChatBot</h3>
+            <p>Need help? Our AI chatbot is here to provide quick answers and guidance, day or night!</p>
+            <a href="chatbot.html" class="btn">See options →</a>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📄</div>
+            <h3>Self Assesment</h3>
+            <p>Track your progress and skills with our easy-to-use self-assessment tools!</p>
+            <a href="quiz.html" class="btn">Start the test →</a>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🧠</div>
+            <h3>SWOT Analysis</h3>
+            <p>Discover actionable insights and unlock success with a personalized SWOT analysis tailored just for you!</p>
+            <a href="swot.html" class="btn">Start Analysis →</a>
+        </div>
+       
+    </section>
+    <footer class="footer">
+        <p>&copy; 2024 AspireGuide. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    document.getElementById('logout').addEventListener('click', (event) => {
+    event.preventDefault();
+
+    if (confirm('Are you sure you want to log out?')) {
+        fetch('http://localhost:5000/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include',
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'index.html';
+            } else {
+                alert('Failed to log out.');
+            }
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+            alert('An error occurred during logout.');
+        });
+    }
+});
+
+</script>
+</html>

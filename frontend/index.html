@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AspireGuide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo span {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .get-started {
+            background: var(--gold);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .get-started:hover {
+            background: #c19b2f;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('landingpagepic.jpg') center/cover no-repeat;
+                        background-size: contain;
+                        background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem;
+            color: white;
+            
+
+        }
+
+        .hero-content {
+            max-width: 600px;
+            margin-left: 2rem;
+        }
+
+        .welcome {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            
+        }
+
+        .grandmaster {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c19b2f;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 2rem;
+            color: var(--dark);
+        }
+
+        .feature-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .feature-section h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        .feature-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mentorship { background-color: #f0f8ff; }
+        .ai-bot { background-color: #fff0f5; }
+        .roadmaps { background-color: #f0fff0; }
+        .self-assessment { background-color: #fff5e6; }
+        .resume-builder { background-color: #f5f0ff; }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero {
+        min-height: 100vh;
+        /* Set the background image here */
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('/path-to-your-image.jpg') center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        padding: 2rem;
+        color: white;}
+
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .feature-section {
+                padding: 3rem 1rem;
+            }
+
+            .feature-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .feature-section p {
+                font-size: 1rem;
+            }
+        }
+        #about {
+    padding: 6rem 2rem; /* Increased padding for more space */
+    background-color: #f0f0f0; /* Optional background color for contrast */
+}
+
+#about h2 {
+    font-size: 3rem; /* Larger font size for the heading */
+    margin-bottom: 1rem; /* Space below the heading */
+}
+
+#about p, #about ul {
+    font-size: 1.2rem; /* Larger font size for paragraphs and list items */
+    line-height: 1.6; /* Increased line height for readability */
+}
+
+#about ul {
+    margin: 1rem 0; /* Space around the list */
+}
+
+        .footer {
+        padding: 2rem;
+        background-color: var(--dark);
+        color: white;
+        text-align: center;
+    }
+
+    .footer-content p {
+        margin: 0.5rem 0;
+    }
+
+    .social-links a {
+        color: var(--gold);
+        text-decoration: none;
+        margin: 0 0.5rem;
+    }
+
+    .social-links a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">
+            <img src="ucc-removebg-preview.png" alt="Topchess Logo">
+            <span>AspireGuide</span>
+        </a>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#aibot">AI Chatbot</a>
+            <a href="#selfassessment">Self Assesment</a>
+            <a href="#swot">SWOT Analysis</a>
+        </nav>
+        <a href="login.html" class="get-started">Get Started</a>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+           
+            <p class="welcome">Welcome to AspireGuide</p>
+            <h1>Empowering Your Path To <span class="grandmaster">Success</span></h1>
+            <p>Unlock your career potential with personalized guidance and expert tools. Whether starting out or making a change, we help you set achievable goals and turn aspirations into success</p>
+            <div class="cta-buttons">
+                <a href="login.html" class="btn btn-primary">Join Now</a>
+                <a href="#about" class="btn btn-secondary">Learn More →</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="aibot" class="feature-section ai-bot">
+        <div class="feature-content">
+            <h2>AI Chat Bot</h2>
+            <p>  Chat with our AI chatbot, your personal career advisor. Available 24/7, it answers your questions, provides tailored resources, and offers guidance to help you navigate your career journey effectively</p>
+            <img src="aibot.jpg" alt="AI Chess Bot" class="feature-image">
+            <a href="login.html" class="btn btn-primary">Play Against AI</a>
+        </div>
+    </section>
+
+
+    <section id="selfassessment" class="feature-section self-assessment">
+        <div class="feature-content">
+            <h2>Self Assessment Tests</h2>
+            <p>Evaluate your  skills with our comprehensive assessment tools and track your progress over time. Our self-assessment feature helps you identify areas for improvement and celebrates your achievements as you grow.</p>
+            <img src="selfassesment.jpg" alt="Chess Self Assessment" class="feature-image">
+            <a href="login.html" class="btn btn-primary">Start Assessment</a>
+        </div>
+    </section>
+
+    <section id="swot" class="feature-section resume-builder">
+        <div class="feature-content">
+            <h2>SWOT Analysis</h2>
+            <p>Identify your Strengths, address Weaknesses, seize Opportunities, and mitigate Threats with ease. Perfect for career planning, personal growth, or strategic decisions, our tool provides clear insights to help you succeed.</p>
+            <img src="swot.png" alt="Chess Resume Builder" class="feature-image">
+            <a href="login.html" class="btn btn-primary">Start Analysis</a>
+        </div>
+    </section>
+    <section id="about" class="feature-section">
+        <div class="feature-content">
+            <h2>About Us</h2>
+            <p>At AspireGuide, we are dedicated to empowering individuals on their journey to success. Our comprehensive features include:</p>
+            <ul>
+                <li>Personalized Mentorship</li>
+                <li>AI-Powered Learning Tools</li>
+                <li>Structured Learning Roadmaps</li>
+                <li>Self-Assessment Tools</li>
+                <li>SWOT Analysis</li>
+            </ul>
+            <p>Connect with us on social media:</p>
+            <div class="social-links">
+                <a href="https://instagram.com/yourinsta" target="_blank">Instagram</a> |
+                <a href="https://facebook.com/yourfacebook" target="_blank">Facebook</a>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Contact us: info@aspireguide.com | Phone: (123) 456-7890</p>
+            <p>&copy; 2024 AspireGuide. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

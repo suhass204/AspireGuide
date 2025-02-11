@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWOT Analysis Template</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff5f5;
+            height: 100%;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .swot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .swot-section {
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .swot-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .swot-section h2 {
+            margin-top: 0;
+            color: #4a4a4a;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .swot-section textarea {
+            width: 100%;
+            height: 200px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            resize: none;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .swot-section textarea:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #strengths { background-color: #c19b2f; }
+        #weaknesses { background-color:#375a76; }
+        #opportunities { background-color:#375a76 ; }
+        #threats { background-color: #c19b2f; }
+
+        .submit-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .submit-button button {
+            background-color: #c19b2f;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-button button:hover {
+            background-color: #c19b2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 83, 80, 0.3);
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: popIn 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48);
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .popup h2 {
+            margin-top: 0;
+            color: #4a4a4a;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .popup input:focus {
+            outline: none;
+            border-color: #c19b2f;
+            box-shadow: 0 0 10px rgba(229, 115, 115, 0.2);
+        }
+
+        .popup button {
+            background-color: #c19b2f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .popup button:hover {
+            background-color: #c19b2f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 83, 80, 0.3);
+        }
+
+        .watermark {
+            position: absolute;
+            font-size: 180px;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .swot-section:hover .watermark {
+            opacity: 0.15;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .swot-grid {
+                grid-template-columns: 1fr;
+            }
+            .swot-section {
+                padding: 20px;
+            }
+            .watermark {
+                font-size: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h2>Welcome to SWOT Analysis</h2>
+            <input type="text" id="fieldOfInterest" placeholder="Enter your field of interest" aria-label="Field of interest">
+            <button onclick="startAnalysis()">Start Analysis</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>SWOT Analysis</h1>
+        <div class="swot-grid">
+            <div class="swot-section" id="strengths">
+                <h2>Strengths</h2>
+                <textarea placeholder="Enter strengths..." aria-label="Strengths" id="strengths1"></textarea>
+                <div class="watermark" aria-hidden="true">S</div>
+            </div>
+            <div class="swot-section" id="weaknesses">
+                <h2>Weaknesses</h2>
+                <textarea placeholder="Enter weaknesses..." aria-label="Weaknesses" id="weaknesses1"></textarea>
+                <div class="watermark" aria-hidden="true">W</div>
+            </div>
+            <div class="swot-section" id="opportunities">
+                <h2>Opportunities</h2>
+                <textarea placeholder="Enter opportunities..." aria-label="Opportunities" id="opportunities1"></textarea>
+                <div class="watermark" aria-hidden="true">O</div>
+            </div>
+            <div class="swot-section" id="threats">
+                <h2>Threats</h2>
+                <textarea placeholder="Enter threats..." aria-label="Threats" id="threats1"></textarea>
+                <div class="watermark" aria-hidden="true">T</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="submit-button">
+        <button onclick="submitSWOTAnalysis()">Submit SWOT Analysis</button>
+    </div>
+
+    <script>
+        let fieldOfInterest1;
+        function startAnalysis() {
+            document.getElementById('popup').style.display = 'none';
+            fieldOfInterest1 = document.getElementById("fieldOfInterest").value;
+        }
+        function submitSWOTAnalysis() {
+    // Get user inputs
+    const strengths1 = document.getElementById("strengths1").value.trim();
+    const weaknesses1 = document.getElementById("weaknesses1").value.trim();
+    const opportunities1 = document.getElementById("opportunities1").value.trim();
+    const threats1 = document.getElementById("threats1").value.trim();
+
+    if (!fieldOfInterest1 || !strengths1 || !weaknesses1 || !opportunities1 || !threats1) {
+        alert("Please fill in all fields before submitting!");
+        return;
+    }
+
+    // Data to send to the backend
+    const data = {
+        fieldOfInterest: fieldOfInterest1,
+        strengths: strengths1,
+        weaknesses: weaknesses1,
+        opportunities: opportunities1,
+        threats: threats1,
+    };
+
+    console.log("Submitting SWOT Analysis:", data);
+
+    // Make POST request to the backend
+    fetch("http://localhost:5000/api/swot/analysis", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            // Check response and display formatted results
+            if (data.message == "swot analysis sucessfully done") {
+                document.body.innerHTML = '';
+
+const resultContainer = document.createElement("div");
+resultContainer.className = "result-container";
+resultContainer.style.padding = "40px";
+resultContainer.style.background = "#f4f6f9";
+resultContainer.style.borderRadius = "15px";
+resultContainer.style.marginTop = "40px";
+resultContainer.style.maxWidth = "1000px";
+resultContainer.style.marginLeft = "auto";
+resultContainer.style.marginRight = "auto";
+resultContainer.style.boxShadow = "0 10px 20px rgba(0, 0, 0, 0.1)";
+resultContainer.style.fontFamily = "'Segoe UI', 'Roboto', 'Arial', sans-serif";
+
+resultContainer.innerHTML = `
+    <h2 style="text-align: center; color: #2980b9; font-size: 32px; margin-bottom: 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">SWOT Analysis Results</h2>
+
+    <div class="category" style="background: rgba(255, 193, 7, 0.1); border-radius: 10px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <h3 style="color: #3498db; font-size: 24px; border-bottom: 2px solid #3498db; padding-bottom: 10px;">Strengths</h3>
+        <div class="sub-category">
+            <h4 style="color: #2980b9; font-size: 20px;">Enhancements</h4>
+            <ul style="list-style-type: none; padding-left: 0; color: #34495e;">
+                ${data.data.strengths.enhancements.map(item => `<li style="background: #f8f9fa; margin: 10px 0; padding: 10px 15px; border-radius: 5px;">${item}</li>`).join('')}
+            </ul>
+        </div>
+        <div class="sub-category">
+            <h4 style="color: #2980b9; font-size: 20px;">Applications</h4>
+            <ul style="list-style-type: none; padding-left: 0; color: #34495e;">
+                ${data.data.strengths.applications.map(item =>` <li style="background: #f8f9fa; margin: 10px 0; padding: 10px 15px; border-radius: 5px;">${item}</li>`).join('')}
+            </ul>
+        </div>
+    </div>
+
+    <div class="category" style="background: rgba(0, 123, 255, 0.1); border-radius: 10px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <h3 style="color: #e74c3c; font-size: 24px; border-bottom: 2px solid #e74c3c; padding-bottom: 10px;">Weaknesses</h3>
+        <div class="sub-category">
+            <h4 style="color: #c0392b; font-size: 20px;">Conversions</h4>
+            <ul style="list-style-type: none; padding-left: 0; color: #34495e;">
+                ${data.data.weaknesses.conversions.map(item => `<li style="background: #f8f9fa; margin: 10px 0; padding: 10px 15px; border-radius: 5px;">${item}</li>`).join('')}
+            </ul>
+        </div>
+        <div class="sub-category">
+            <h4 style="color: #c0392b; font-size: 20px;">Actions</h4>
+            <ul style="list-style-type: none; padding-left: 0; color: #34495e;">
+                ${data.data.weaknesses.actions.map(item =>` <li style="background: #f8f9fa; margin: 10px 0; padding: 10px 15px; border-radius: 5px;">${item}</li>`).join('')}
+            </ul>
+        </div>
+    </div>
+
+    <div class="category" style="background: rgba(255, 193, 7, 0.1); border-radius: 10px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <h3 style="color: #27ae60; font-size: 24px; border-bottom: 2px solid #27ae60; padding-bottom: 10px;">Opportunities</h3>
+        <div class="sub-category">
+            <h4 style="color: #16a085; font-size: 20px;">Suggestions</h4>
+            <ul style="list-style-type: none; padding-left: 0; color: #34495e;">
+                ${data.data.opportunities.suggestions.map(item => `<li style="background: #f8f9fa; margin: 10px 0; padding: 10px 15px; border-radius: 5px;">${item}</li>`).join('')}
+            </ul>
+        </div>
+    </div>
+
+    <div class="category" style="background: rgba(0, 123, 255, 0.1); border-radius: 10px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
+        <h3 style="color: #f39c12; font-size: 24px; border-bottom: 2px solid #f39c12; padding-bottom: 10px;">Threats</h3>
+        <div class="sub-category">
+            <h4 style="color: #d35400; font-size: 20px;">Strategies</h4>
+            <ul style="list-style-type: none; padding-left: 0; color: #34495e;">
+                ${data.data.threats.strategies.map(item => `<li style="background: #f8f9fa; margin: 10px 0; padding: 10px 15px; border-radius: 5px;">${item}</li>`).join('')}
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 30px; text-align: center;">
+        <!-- Print Button -->
+        <button onclick="window.print()" style="padding: 10px 20px; background: #28A745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-right: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s;">
+            Print
+        </button>
+
+        <!-- Exit Button -->
+        <button onclick="window.location.href='dashboard.html'" style="padding: 10px 20px; background: #FF5733; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s;">
+            Exit
+        </button>
+    </div>
+`;
+
+document.body.appendChild(resultContainer);
+
+// Remove any hover effects or moving animations
+const styles = `
+    .category {
+        transition: none;
+    }
+    .sub-category {
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+    h3 {
+        font-size: 24px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+    h4 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        font-size: 16px;
+    }
+`;
+
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch((error) => {
+            console.error("Error submitting SWOT analysis:", error);
+            alert("An error occurred while submitting the analysis. Please try again.");
+        });
+}
+
+
+// Add event listener to the submit button
+document.querySelector(".submit-button button").addEventListener("click", submitSWOTAnalysis);
+
+    </script>
+</body>
+</html>

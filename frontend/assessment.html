@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Yourself!</title>
+    <style>
+        /* Set the background image for the entire body */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('quiz.jpg') no-repeat center fixed;
+            background-size: cover; /* Ensures the background covers the whole page */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        
+
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Slight transparency so background image shows through */
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .quiz-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .quiz-title {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .quiz-title span:first-child {
+            color: #333;
+        }
+
+        .quiz-title span:last-child {
+            color: #c19b2f;
+        }
+
+        .quiz-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .quiz-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .quiz-question-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+
+        .option.selected {
+            background-color: #c19b2f;
+            color: white;
+        }
+
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .option.selected .option-letter {
+            background-color: white;
+            color: #c19b2f;
+        }
+
+        .next-button {
+            background-color: #c19b2f;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .next-button:hover {
+            background-color: #c19b2f;
+        }
+
+        .next-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-content {
+                flex-direction: column;
+            }
+
+            .quiz-column {
+                flex: 1;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title"><span>SELF</span> <span>ASSESSMENT</span></h1>
+        </div>
+        <div class="quiz-content" id="quiz-content">
+            <!-- Left and Right Column for Questions -->
+            <div class="quiz-column" id="left-column"></div>
+            <div class="quiz-column" id="right-column"></div>
+        </div>
+        <button class="next-button" id="next-button" disabled>Next</button>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What excites you the most?", options: ["Technology", "Leadership", "Problem-solving", "Teamwork"] },
+            { question: "What do you prioritize in your career?", options: ["High Salary", "Job Satisfaction", "Growth Opportunities", "Work-Life Balance"] },
+            { question: "How do you prefer working?", options: ["Independently", "In a Team", "Leading a Team", "In a Flexible Environment"] },
+            { question: "What is your preferred work environment?", options: ["Corporate Office", "Startup", "Remote Work", "Outdoor/Field Work"] },
+            { question: "What motivates you the most?", options: ["Recognition", "Continuous Learning", "Achieving Goals", "Helping Others"] },
+            { question: "Which of these do you enjoy the most?", options: ["Analyzing Data", "Creating Designs", "Writing Code", "Managing People"] },
+            { question: "What type of problems do you like solving?", options: ["Technical Challenges", "Creative Problems", "Human/Behavioral Issues", "Strategic Issues"] },
+            { question: "How do you handle tasks?", options: ["Plan and Execute", "Adapt as I Go", "Delegate to Others", "Work on the Fly"] },
+            { question: "What describes your decision-making style?", options: ["Data-Driven", "Intuitive", "Collaborative", "Strategic"] },
+            { question: "How do you approach challenges?", options: ["Logically", "Creatively", "Emotionally", "With a Team"] },
+            { question: "What type of skills do you want to develop?", options: ["Technical", "Creative", "Leadership", "Communication"] },
+            { question: "How do you prefer communicating?", options: ["Emails/Chats", "Face-to-Face", "Through Presentations", "Group Discussions"] },
+            { question: "What inspires you?", options: ["Innovative Ideas", "Successful Leaders", "Positive Impact", "Team Achievements"] },
+            { question: "How do you approach learning?", options: ["Self-Study", "Workshops", "Mentorship", "Group Activities"] },
+            { question: "Which role do you naturally take in a group?", options: ["Leader", "Supporter", "Innovator", "Coordinator"] },
+            { question: "What’s your ideal level of responsibility?", options: ["Individual Contributor", "Team Member", "Team Leader", "Manager"] },
+            { question: "Which industry excites you the most?", options: ["Technology", "Healthcare", "Finance", "Creative Arts"] },
+            { question: "How do you handle feedback?", options: ["Seek Regular Feedback", "Process it Internally", "Discuss it Openly", "Use it for Growth"] },
+            { question: "What’s your preferred way of working?", options: ["Structured", "Flexible", "Collaborative", "Goal-Oriented"] },
+            { question: "What’s your long-term aspiration?", options: ["Master a Skill", "Lead a Team", "Start a Business", "Make a Difference"] }
+        ];
+
+
+
+        let currentQuestionIndex = 0;
+const userResponses = [];
+const leftColumn = document.getElementById("left-column");
+const rightColumn = document.getElementById("right-column");
+const nextButton = document.getElementById("next-button");
+
+// Display questions on the current page
+function displayQuestions() {
+    leftColumn.innerHTML = '';
+    rightColumn.innerHTML = '';
+    nextButton.disabled = true;
+
+    // Display 4 questions (2 on left, 2 on right)
+    for (let i = 0; i < 2; i++) {
+        createQuestionElement(currentQuestionIndex + i, leftColumn);
+    }
+    for (let i = 2; i < 4; i++) {
+        createQuestionElement(currentQuestionIndex + i, rightColumn);
+    }
+}
+
+// Create a question element
+function createQuestionElement(questionIndex, container) {
+    if (questionIndex >= questions.length) return;
+
+    const question = questions[questionIndex];
+    const questionContainer = document.createElement("div");
+    questionContainer.classList.add("quiz-question-container");
+
+    const questionText = document.createElement("p");
+    questionText.classList.add("question-text");
+    questionText.textContent = question.question;
+
+    const optionsContainer = document.createElement("div");
+    optionsContainer.classList.add("options");
+
+    question.options.forEach((option, index) => {
+        const optionElement = document.createElement("div");
+        optionElement.classList.add("option");
+        optionElement.innerHTML = `
+            <span class="option-letter">${String.fromCharCode(65 + index)}</span> ${option}
+        `;
+        optionElement.addEventListener("click", () => selectOption(questionIndex, optionElement, option));
+        optionsContainer.appendChild(optionElement);
+    });
+
+    questionContainer.appendChild(questionText);
+    questionContainer.appendChild(optionsContainer);
+    container.appendChild(questionContainer);
+}
+
+// Select an option for a question
+function selectOption(questionIndex, optionElement, option) {
+    // Find and deselect other options for this question
+    const questionContainers = document.querySelectorAll(".quiz-question-container");
+    const options = questionContainers[questionIndex - currentQuestionIndex].querySelectorAll(".option");
+    options.forEach(opt => opt.classList.remove("selected"));
+
+    // Select the clicked option
+    optionElement.classList.add("selected");
+
+    // Save the answer in the responses array
+    userResponses[questionIndex] = option;
+
+    // Enable next button if all 4 questions on the page are answered
+    const answeredQuestions = Object.keys(userResponses).slice(currentQuestionIndex, currentQuestionIndex + 4).length;
+    nextButton.disabled = answeredQuestions < Math.min(4, questions.length - currentQuestionIndex);
+}
+
+// Handle the "Next" button click
+nextButton.addEventListener("click", () => {
+    currentQuestionIndex += 4;
+
+    if (currentQuestionIndex >= questions.length) {
+        submitResponses();
+    } else {
+        displayQuestions();
+    }
+});
+
+// Submit responses to API and display results
+function submitResponses() {
+    fetch("http://localhost:5000/api/assessment/quiz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: userResponses }),
+    })
+        .then(response => response.json())
+        .then(data => displayResults(data))
+        .catch(error => {
+            console.error("Error submitting quiz:", error);
+        });
+}
+
+// Display results in a new page
+function displayResults(result) {
+    document.body.innerHTML = `
+    <div style="font-family: Arial, sans-serif; max-width: 950px; margin: 50px auto; padding: 20px; background: #fefefe; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #85C1E9, #AED6F1); color: #003366; text-align: center; padding: 20px; border-radius: 15px;">
+            <h1 style="margin: 0; font-size: 28px;">${result.data.career_path.name}</h1>
+        </div>
+
+        <!-- Four Category Boxes -->
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; justify-content: space-between;">
+            <!-- Box 1: Overview -->
+            <div style="flex: 1 1 calc(50% - 10px); background-color: rgba(255, 193, 7, 0.1); color: #4A4A4A; border: 1px solid #c19b2f; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);">
+                <h2 style="margin-bottom: 10px; color: #c19b2f;">Overview</h2>
+                <p style="font-size: 1em; line-height: 1.6;">${result.data.career_path.overview}</p>
+            </div>
+
+            <!-- Box 2: Skills and Strengths -->
+            <div style="flex: 1 1 calc(50% - 10px); background-color: rgba(0, 123, 255, 0.1); color: #004D40; border: 1px solid #375a76; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);">
+                <h2 style="margin-bottom: 10px; color: #375a76;">Skills and Strengths</h2>
+                <ul style="margin: 0; padding-left: 20px; list-style-type: disc;">
+                    ${result.data.career_path.skills_and_strengths.map(skill =>` <li>${skill}</li>`).join("")}
+                </ul>
+            </div>
+
+            <!-- Box 3: Growth Potential -->
+            <div style="flex: 1 1 calc(50% - 10px); background-color: rgba(255, 193, 7, 0.1); color: #1A5276; border: 1px solid #c19b2f; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);">
+                <h2 style="margin-bottom: 10px; color: #c19b2f;">Growth Potential</h2>
+                <p><strong>Salary Range:</strong> ${result.data.career_path.growth_potential.salary_range}</p>
+                <p><strong>Job Market:</strong> ${result.data.career_path.growth_potential.job_market}</p>
+                <p><strong>Growth:</strong> ${result.data.career_path.growth_potential.growth}</p>
+            </div>
+
+            <!-- Box 4: Top Companies -->
+            <div style="flex: 1 1 calc(50% - 10px); background-color: rgba(0, 123, 255, 0.1); color: #7D6608; border: 1px solid #375a76; border-radius: 10px; padding: 20px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);">
+                <h2 style="margin-bottom: 10px; color: #375a76;">Top Companies</h2>
+                <ul style="margin: 0; padding-left: 20px; list-style-type: disc;">
+                    ${result.data.career_path.top_companies.map(company =>` <li>${company}</li>`).join("")}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer: Education Pathways -->
+        <div style="margin-top: 20px; background-color: rgba(255, 193, 7, 0.1); color: #4A4A4A; padding: 20px; border-radius: 10px; border: 1px solid #c19b2f; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);">
+            <h2 style="margin-bottom: 10px; color: #c19b2f;">Education Pathways</h2>
+            <ul style="margin: 0; padding-left: 20px; list-style-type: square;">
+                ${result.data.career_path.education_pathways.map(edu => `
+                    <li>
+                        <strong>${edu.degree || edu.certification}:</strong> ${edu.duration}
+                    </li>
+                `).join("")}
+            </ul>
+        </div>
+        <div style="margin-top: 30px; text-align: center;">
+        <!-- Print Button -->
+        <button onclick="window.print()" style="padding: 10px 20px; background: #28A745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-right: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s;">
+            Print
+        </button>
+
+        <!-- Exit Button -->
+        <button onclick="window.location.href='dashboard.html'" style="padding: 10px 20px; background: #FF5733; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: background 0.3s;">
+            Exit
+        </button>
+    </div>
+    </div>
+`;
+}
+
+// Initialize the quiz
+displayQuestions();
+
+    </script>
+</body>
+</html>
+
+
